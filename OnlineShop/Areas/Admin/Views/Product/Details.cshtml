@@ -1,0 +1,106 @@
+﻿@model OnlineShop.Models.Products
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<h2 class="text-info">Detail Product</h2>
+<br />
+<br />
+<form method="post" enctype="multipart/form-data">
+    <div class="p-4 rounded border">
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+
+        </div>
+        <div class="row">
+
+            <div class="col-md-8">
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Name"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Name" readonly="readonly" class="form-control" />
+                    </div>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Price"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Price" readonly="readonly" class="form-control" />
+                    </div>
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="productColor"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="productColor" readonly="readonly" class="form-control" />
+                    </div>
+                    <span asp-validation-for="productColor" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="ProductTypesId"></label>
+                    </div>
+                    <div class="col-8">
+                        <select class="form-control" readonly="readonly" asp-for="ProductTypesId"
+                                asp-items="@ViewBag.ProductTypeID"></select>
+                        @*<input asp-for="" class="form-control" />*@
+                    </div>
+                    <span asp-validation-for="ProductTypesId" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="SpecialTagId"></label>
+                    </div>
+                    <div class="col-8">
+                        <select class="form-control" asp-for="SpecialTagId" readonly="readonly"
+                                asp-items="@ViewBag.SpecialTagsId"></select>
+                        @*<input asp-for="" class="form-control" />*@
+                    </div>
+                    <span asp-validation-for="SpecialTagId" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="isAvailable"></label>
+                    </div>
+                    <div class="col-5">
+                        <input asp-for="isAvailable" readonly="readonly"/>
+                    </div>
+                    <span asp-validation-for="isAvailable" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <a asp-action="Edit" asp-controller="Product" class="btn btn-primary" >Edit</a>
+                    <input type="submit" value="Back to List" asp-action="Index" class="btn btn-success fas fa-arrow-left" /> 
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                @{
+                    if (Model.Image.Equals(""))
+                    {
+                        <img src="~/Images/noimage.png" alt="Preview Image" width="100" />
+                    }
+                    else
+                    {
+                        <img src="@Model.Image" alt="Preview Image" width="100" />
+
+                    }
+                }
+            </div>
+        </div>
+
+    </div>
+</form>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

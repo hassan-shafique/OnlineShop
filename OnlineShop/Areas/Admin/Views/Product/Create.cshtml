@@ -1,0 +1,98 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+@model OnlineShop.Models.Products
+
+<h2 class="text-info">Create New Product</h2>
+<br />
+<br />
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="p-4 rounded border">
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+            <input type="hidden" asp-for="Id" />
+        </div>
+        <div class="col-md-8">
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Name"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Name" class="form-control" />
+                </div>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Price"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Price" class="form-control" />
+                </div>
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Image"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Image" class="form-control" type="file" />
+                </div>
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="productColor"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="productColor" class="form-control" />
+                </div>
+                <span asp-validation-for="productColor" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="ProductTypesId"></label>
+                </div>
+                <div class="col-5">
+                    <select class="form-control" asp-for="ProductTypesId"
+                            asp-items="@ViewBag.ProductTypeID"></select>
+                    @*<input asp-for="" class="form-control" />*@
+                </div>
+                <span asp-validation-for="ProductTypesId" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="SpecialTagId"></label>
+                </div>
+                <div class="col-5">
+                    <select class="form-control" asp-for="SpecialTagId"
+                            asp-items="@ViewBag.SpecialTagsId"></select>
+                    @*<input asp-for="" class="form-control" />*@
+                </div>
+                <span asp-validation-for="SpecialTagId" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="isAvailable"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="isAvailable" type="checkbox" />
+                </div>
+                <span asp-validation-for="isAvailable" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-success"><i class="fas fa-arrow-left"></i> Back To List</a>
+            </div>
+        </div>
+    </div>
+                
+</form>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

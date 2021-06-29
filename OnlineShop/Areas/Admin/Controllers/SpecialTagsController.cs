@@ -34,12 +34,13 @@ namespace OnlineShop.Areas.Admin.Controllers
             {
                 db.SpecialTags.Add(specialTags);
                 await db.SaveChangesAsync();
+                TempData["save"] = "Special tag has been added successfully";
                 return RedirectToAction(nameof(Index));
             }
             return View(specialTags);
         }
 
-
+        // Action Method to Edit Special Tags
         public IActionResult Edit(int? id)
         {
             if (id == null)
@@ -66,19 +67,65 @@ namespace OnlineShop.Areas.Admin.Controllers
             return View(tags);
         }
 
+        // Action Method to get details of Special tags
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var tag = db.SpecialTags.Find(id);
+            if (tag == null)
+            {
+                return NotFound();
+            }
+            return View(tag);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Details(SpecialTags specialTags)
+        {
+            return RedirectToAction(nameof(Index));
+        }
+        // Action Method to Delete Special tags
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var tag = db.SpecialTags.Find(id);
+            if (tag==null)
+            {
+                return NotFound();
+            }
+            return View(tag);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int? id,SpecialTags specialTags)
+        {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+            if (id == null)
+            {
+                return NotFound();
+            }
+            if (specialTags.Id != id)
+            {
+                return NotFound();
+            }
+            var tag = db.SpecialTags.Find(id);
+            if (tag == null)
+            {
+                return NotFound();
+            }
+            if(ModelState.IsValid)
+            {
+                db.Remove(tag);
+                await db.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
+        }
     }
 }
